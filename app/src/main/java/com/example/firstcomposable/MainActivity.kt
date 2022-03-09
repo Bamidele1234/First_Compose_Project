@@ -28,6 +28,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            /**
+             * To improve the appearance of the composable using material design styling
+             */
             FirstComposableTheme {
                 Conversation(SampleData.conversationSample)
             }
@@ -103,23 +106,52 @@ fun MessageCard(msg: Message) {
 
 }
 
+/**
+ * Define the structure of data class Id
+ */
 data class Id(val name: String, val course: String, val regNo: Int)
 
 @Composable
 fun MyCard(identity: Id){
+    // The Image should be padded to follow material design guidelines
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
-            painter = painterResource(R.drawable.mypicture),
+            painter = painterResource(R.drawable.nosignal),
             contentDescription = "Student profile picture",
             modifier = Modifier
-                .size(45.dp)
+                // Set the image size
+                .size(55.dp)
+                // Clip the image to be shaped as a circle
                 .clip(CircleShape)
+                // Set the properties of the border
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
         )
 
+        // Add a horizontal space between the image and the column
+        Spacer(modifier = Modifier.width(8.dp))
+
         Column {
-            Text(text = identity.name)
-            Text(text = identity.course)
-            Text(text = identity.regNo.toString())
+            Text(
+                text = identity.name,
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
+            )
+
+            // Add a vertical spacer between the name and the course texts
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Text(
+                text = identity.course,
+                style = MaterialTheme.typography.body2
+            )
+
+            // Add a vertical spacer between the course and the regNo text
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Text(
+                text = identity.regNo.toString(),
+                style = MaterialTheme.typography.body2
+            )
         }
     }
 
@@ -128,8 +160,12 @@ fun MyCard(identity: Id){
 @Preview
 @Composable
 fun PreviewCard(){
+    /**
+     * To improve the appearance of the composable using material design styling
+     */
     FirstComposableTheme {
-        MyCard(Id("Bamidele David Ajewole", "Computer Science", 2101788))
+        MyCard(
+            Id("Bamidele David Ajewole", "Computer Science", 2101788))
     }
 }
 
