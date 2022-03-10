@@ -1,5 +1,8 @@
 package com.example.firstcomposable
 
+/**
+ * Sample data for the messages
+ */
 object SampleData {
     // Sample conversation data
     val conversationSample = listOf(

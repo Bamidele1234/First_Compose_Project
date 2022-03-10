@@ -1,5 +1,6 @@
 package com.example.firstcomposable
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,6 +39,73 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * Define the structure of data class Id
+ */
+data class Id(val name: String, val course: String, val regNo: Int)
+
+/**
+ * Define the structure of data class Message
+ */
+data class Message(val author: String, val body: String)
+
+/**
+ * Design the structure of a card
+ */
+@Composable
+fun MyCard(identity: Id){
+    // The Image should be padded to follow material design guidelines
+    Row(modifier = Modifier.padding(all = 8.dp)) {
+        Image(
+            painter = painterResource(R.drawable.nosignal),
+            contentDescription = "Student profile picture",
+            modifier = Modifier
+                // Set the image size
+                .size(55.dp)
+                // Clip the image to be shaped as a circle
+                .clip(CircleShape)
+                // Set the properties of the border
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
+        )
+
+        // Add a horizontal space between the image and the column
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Column {
+            Text(
+                text = identity.name,
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
+            )
+
+            // Add a vertical spacer between the name and the course texts
+            Spacer(modifier = Modifier.height(2.dp))
+
+            Surface(shape = MaterialTheme.shapes.medium, elevation = 8.dp){
+                Column{
+                    Text(
+                        text = identity.course,
+                        modifier = Modifier.padding(all = 4.dp),
+                        style = MaterialTheme.typography.body2
+                    )
+
+                    // Add a vertical spacer between the course and the regNo text
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = identity.regNo.toString(),
+                        modifier = Modifier.padding(all = 4.dp),
+                        style = MaterialTheme.typography.body2
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Design the structure of the message card
+ */
 @Composable
 fun MessageCard(msg: Message) {
     // Add padding around our message
@@ -106,58 +174,16 @@ fun MessageCard(msg: Message) {
 
 }
 
+
 /**
- * Define the structure of data class Id
+ * Preview the composable in both light mode and dark mode
  */
-data class Id(val name: String, val course: String, val regNo: Int)
-
-@Composable
-fun MyCard(identity: Id){
-    // The Image should be padded to follow material design guidelines
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-        Image(
-            painter = painterResource(R.drawable.nosignal),
-            contentDescription = "Student profile picture",
-            modifier = Modifier
-                // Set the image size
-                .size(55.dp)
-                // Clip the image to be shaped as a circle
-                .clip(CircleShape)
-                // Set the properties of the border
-                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
-        )
-
-        // Add a horizontal space between the image and the column
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Column {
-            Text(
-                text = identity.name,
-                color = MaterialTheme.colors.secondaryVariant,
-                style = MaterialTheme.typography.subtitle2
-            )
-
-            // Add a vertical spacer between the name and the course texts
-            Spacer(modifier = Modifier.height(2.dp))
-
-            Text(
-                text = identity.course,
-                style = MaterialTheme.typography.body2
-            )
-
-            // Add a vertical spacer between the course and the regNo text
-            Spacer(modifier = Modifier.height(2.dp))
-
-            Text(
-                text = identity.regNo.toString(),
-                style = MaterialTheme.typography.body2
-            )
-        }
-    }
-
-}
-
-@Preview
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
 fun PreviewCard(){
     /**
@@ -179,7 +205,6 @@ fun Conversation(messages: List<Message>){
 }
 
 
-data class Message(val author: String, val body: String)
 
 
 
