@@ -78,7 +78,7 @@ fun MyCard(identity: Id){
                 style = MaterialTheme.typography.subtitle2
             )
 
-            // Add a vertical spacer between the name and the course texts
+            // Add a vertical spacer between the name and the course/regNo texts
             Spacer(modifier = Modifier.height(2.dp))
 
             Surface(shape = MaterialTheme.shapes.medium, elevation = 8.dp){
@@ -88,9 +88,6 @@ fun MyCard(identity: Id){
                         modifier = Modifier.padding(all = 4.dp),
                         style = MaterialTheme.typography.body2
                     )
-
-                    // Add a vertical spacer between the course and the regNo text
-                    Spacer(modifier = Modifier.height(2.dp))
 
                     Text(
                         text = identity.regNo.toString(),
@@ -191,7 +188,32 @@ fun PreviewCard(){
      */
     FirstComposableTheme {
         MyCard(
-            Id("Bamidele David Ajewole", "Computer Science", 2101788))
+            Id("Walter Charles King", "Computer Engineering", 1234567))
+    }
+}
+
+
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
+@Composable
+fun PreviewMessageCard() {
+    FirstComposableTheme {
+        MessageCard(
+            msg = Message("James Young", "Starting off with Jetpack Compose, a declarative Ui toolkit for building modern UIs")
+        )
+    }
+
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    FirstComposableTheme {
+        Conversation(SampleData.conversationSample)
     }
 }
 
